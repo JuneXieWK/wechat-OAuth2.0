@@ -2,6 +2,7 @@
 /**
  *授权获取用户信息。包括头像、昵称
  */
+header("Content-Type: text/html;charset=gb2312");
 
 error_reporting(E_ALL & ~E_NOTICE);
 
