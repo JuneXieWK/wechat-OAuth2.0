@@ -10,7 +10,7 @@ class oauth2{
  	public $State="";
  	public $Access_token="";
  	
- 	public $Openid="";
+	 public $Openid="";
  	
  	function __construct(){		
  		//默认使用的appid
@@ -113,10 +113,14 @@ class oauth2{
  		// $o=json_decode($content,true);
  		// $openid=$o['openid'];
 		// $access_token=$o['access_token'];
-		$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$APPID&secret=$SECRET";
-		$res = $this->http_request($url);
-		$o = json_decode($res, true);
-		$access_token = $o['access_token'];
+		// $this->lasttime = 1406469747;
+		// $this->access_token = "";
+		// if(time()>($this->lasttime + 7200)){
+			$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$APPID&secret=$SECRET";
+			$res = $this->http_request($url);
+			$o = json_decode($res, true);
+			$access_token = $o['access_token'];
+		// }
 
 		$template = array(
 			'touser'=>"o0Tlr1lkjOFwD22MiiavyumR2xjQ",
