@@ -110,7 +110,7 @@ class oauth2{
 		$SECRET=$this->SECRET;
 		$code=$this->Code;
 			
-		$url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$APPID&secret=$SECRET";
+		$url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$APPID&secret=$SECRET&scope=snsapi_userinfo";
 		$content=file_get_contents($url);
 		$o=json_decode($content,true);
 		$access_token=$o['access_token'];
