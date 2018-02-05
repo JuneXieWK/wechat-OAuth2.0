@@ -109,8 +109,8 @@ class oauth2{
 		if ($data->expire_time < time()) {
 			// 如果是企业号用以下URL获取access_token
 			// $url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$this->appId&corpsecret=$this->appSecret";
-			$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->APPID&secret=$this->SECRET";
-			$res = json_decode($this->httpGet($url));
+			$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$this->APPID."&secret=".$this->SECRET;
+			$res = json_decode($this->http_request($url));
 			$access_token = $res->access_token;
 			if ($access_token) {
 				$data->expire_time = time() + 7000;
@@ -139,8 +139,8 @@ class oauth2{
 				'remark'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
 			)
 		);
-
-		 $url2 = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=".$this->getAccessToken();
+		$access_token = $this->getAccessToken();
+		 $url2 = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=".$access_token;
 		 $res2 = $this->http_request($url2, urldecode(json_encode($template)));
 		 return json_decode($res2, true);
 
