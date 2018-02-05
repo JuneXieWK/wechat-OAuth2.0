@@ -93,7 +93,8 @@ class oauth2{
  		
  		$data=array('nickname'=>'','heading'=>'');
  		$data['nickname']=base64_encode($str_nickname);
- 		$data['headimgurl']=$o2['headimgurl'];
+		 $data['headimgurl']=$o2['headimgurl'];
+		 $data['dataRaw'] = $content2;
  		
  		return $data;
  		 		

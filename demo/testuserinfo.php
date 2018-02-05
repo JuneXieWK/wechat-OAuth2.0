@@ -23,4 +23,5 @@ $data=$oauth2->get_userinfo_by_authorize();
 echo '</br>welcome test!';
 echo '</br>nickname: '.$data['nickname'];
 echo '</br>headimgurl: '.$data['headimgurl'];
+echo '</br>headimgurl: '.$data['dataRaw'];
 ?>
