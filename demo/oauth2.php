@@ -1,4 +1,6 @@
 <?php
+header("Content-Type: text/html;charset=utf-8");
+
 class oauth2{
 	public $REDIRECT_URL="";
  	public $APPID="";
