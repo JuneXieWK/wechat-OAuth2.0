@@ -106,7 +106,17 @@ class oauth2{
  		 		
  	}
  	function send_template_message($data){
-		 $url = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=".$this->$Access_token;
+		$APPID=$this->APPID;
+		$SECRET=$this->SECRET;
+		$code=$this->Code;
+			
+		$url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=$APPID&secret=$SECRET&code=$code&grant_type=authorization_code";
+		$content=file_get_contents($url);
+		$o=json_decode($content,true);
+		$openid=$o['openid'];
+		$access_token=$o['access_token'];
+
+		 $url = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=".$access_token;
 		 $res = $this->http_request($url, $data);
 		 return json_decode($res, true);
 	 }
