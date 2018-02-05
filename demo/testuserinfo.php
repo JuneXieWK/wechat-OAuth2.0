@@ -26,4 +26,18 @@ echo '</br>nickname: '.$data['nickname'];
 echo '</br>headimgurl: '.$data['headimgurl'];
 echo '</br>dataRaw: '.$data['dataRaw'];
 echo '</br>nickname1: '.$data['nickname1'];
+$template = array('touser'=>"测试号的关注者的openId",
+'template_id'=> "1zFGoGtcuC9s81ph8QWClXhBkGkjCP2qZVojVfN9QCs",
+'url'=>"http://www.baidu.com",
+'topcolor'=>"#7B68EE",
+'data'=>array(
+	'first' => array('value'=>urlencode("你好".$data['nickname']), 'color'=>'#743A3A'),
+	'keyword1'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
+	'keyword2'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
+	'keyword3'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
+	'remark'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
+));
+$result = $oauth2->send_template_message($template);
+echo '</br>result: '.$result;
+
 ?>
