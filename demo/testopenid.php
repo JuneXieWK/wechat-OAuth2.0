@@ -11,7 +11,7 @@ $state=$_GET['state'];//state微信接口参数(不需传参则不用)；若传�
 
 $APPID='wx922bb25878a01bea';
 $SECRET='124b06ab6e1bb82b2d46b24e56fee1f3';
-$REDIRECT_URL='http://wkly.com/dev/react/wechat-OAuth2.0/demo/testopenid.php';//当前页面地址
+$REDIRECT_URL='http://www.wkly.com/dev/react/wechat-OAuth2.0/demo/testopenid.php';//当前页面地址
 
 $oauth2=new oauth2();
 $oauth2->init($APPID, $SECRET,$REDIRECT_URL);
