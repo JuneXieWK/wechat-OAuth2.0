@@ -110,13 +110,13 @@ class oauth2{
 		$SECRET=$this->SECRET;
 		$code=$this->Code;
 			
-		$url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=$APPID&secret=$SECRET&code=$code&grant_type=authorization_code";
+		$url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$APPID&secret=$SECRET";
 		$content=file_get_contents($url);
 		$o=json_decode($content,true);
 		$openid=$o['openid'];
 		$access_token=$o['access_token'];
 
-		 $url = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=".$access_token;
+		 $url = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=$access_token";
 		 $res = $this->http_request($url, $data);
 		 return json_decode($res, true);
 	 }
