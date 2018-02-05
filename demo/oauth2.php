@@ -108,14 +108,18 @@ class oauth2{
 		$SECRET=$this->SECRET;
 		$code=$this->Code;
 			
-		$url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=$APPID&secret=$SECRET&code=$code&grant_type=authorization_code";
- 		$content=file_get_contents($url);
- 		$o=json_decode($content,true);
- 		$openid=$o['openid'];
-		$access_token=$o['access_token'];
+		// $url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=$APPID&secret=$SECRET&code=$code&grant_type=authorization_code";
+ 		// $content=file_get_contents($url);
+ 		// $o=json_decode($content,true);
+ 		// $openid=$o['openid'];
+		// $access_token=$o['access_token'];
+		$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$APPID&secret=$SECRET";
+		$res = $this->http_request($url);
+		$o = json_decode($res, true);
+		$access_token = $o['access_token'];
 
 		$template = array(
-			'touser'=>$openid,
+			'touser'=>"o0Tlr1lkjOFwD22MiiavyumR2xjQ",
 			'template_id'=> "1zFGoGtcuC9s81ph8QWClXhBkGkjCP2qZVojVfN9QCs",
 			'url'=>"http://www.baidu.com",
 			'topcolor'=>"#7B68EE",
@@ -129,8 +133,8 @@ class oauth2{
 		);
 
 		 $url2 = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=$access_token";
-		 $res = $this->http_request($url2, urldecode(json_encode($template)));
-		 return $openid;//json_decode($res, true);
+		 $res2 = $this->http_request($url2, urldecode(json_encode($template)));
+		 return json_decode($res2, true);
 
 		//  $res = $this->http_curl($url2, 'post', 'json', urldecode(json_encode($template)));
 		//  return $res;
