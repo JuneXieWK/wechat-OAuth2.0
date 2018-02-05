@@ -83,13 +83,11 @@ class oauth2{
  		$content=file_get_contents($url);
  		$o=json_decode($content,true);
  		$openid=$o['openid'];
-		 $access_token=$o['access_token'];
-		 
-		//  $this->$Access_token = $access_token;
+		$access_token=$o['access_token'];
  		
  		$url2="https://api.weixin.qq.com/sns/userinfo?access_token=$access_token&openid=$openid&lang=zh_CN";
-		 $content2=file_get_contents($url2);
-		 $Temp = $content2;
+		$content2=file_get_contents($url2);
+		$Temp = $content2;
  		$o2=json_decode($content2,true);//微信获取用户信息
  		
  		//处理昵称里的特殊字符
@@ -105,18 +103,33 @@ class oauth2{
  		return $data;
  		 		
  	}
- 	function send_template_message($data){
+ 	function send_template_message(){
 		$APPID=$this->APPID;
 		$SECRET=$this->SECRET;
 		$code=$this->Code;
 			
-		$url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$APPID&secret=$SECRET&scope=snsapi_userinfo";
-		$content=file_get_contents($url);
-		$o=json_decode($content,true);
+		$url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=$APPID&secret=$SECRET&code=$code&grant_type=authorization_code";
+ 		$content=file_get_contents($url);
+ 		$o=json_decode($content,true);
+ 		$openid=$o['openid'];
 		$access_token=$o['access_token'];
 
+		$template = array(
+			'touser'=>$openid,
+			'template_id'=> "1zFGoGtcuC9s81ph8QWClXhBkGkjCP2qZVojVfN9QCs",
+			'url'=>"http://www.baidu.com",
+			'topcolor'=>"#7B68EE",
+			'data'=>array(
+				'first' => array('value'=>urlencode("你好"), 'color'=>'#743A3A'),
+				'keyword1'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
+				'keyword2'=>array('value'=>date('Y-m-d H:i:s'), 'color'=>'#FF0000'),
+				'keyword3'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
+				'remark'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
+			)
+		);
+
 		 $url2 = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=$access_token";
-		 $res = $this->http_request($url2, $data);
+		 $res = $this->http_request($url2, urldecode(json_encode($template)));
 		 return json_decode($res, true);
 	 }
 	 function http_request($url, $data = null){
