@@ -85,7 +85,7 @@ class oauth2{
  		$openid=$o['openid'];
 		 $access_token=$o['access_token'];
 		 
-		 $this->$Access_token = $access_token;
+		//  $this->$Access_token = $access_token;
  		
  		$url2="https://api.weixin.qq.com/sns/userinfo?access_token=$access_token&openid=$openid&lang=zh_CN";
 		 $content2=file_get_contents($url2);
