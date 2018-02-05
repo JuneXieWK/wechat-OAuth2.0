@@ -105,25 +105,25 @@ class oauth2{
  		return $data;
  		 		
  	}
- 	// function send_template_message($data){
-	// 	 $url = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=".$this->$Access_token;
-	// 	 $res = $this->http_request($url, $data);
-	// 	 return json_decode($res, true);
-	//  }
-	//  function http_request($url, $data = null){
-	// 	 $curl = curl_init();
-	// 	 curl_setopt($curl, CURLOPT_URL, $url);
-	// 	 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-	// 	 curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-	// 	 if(!empty($data)){
-	// 		 curl_setopt($curl, CURLOPT_POST, 1);
-	// 		 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-	// 	 }
-	// 	 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-	// 	 $output = curl_exec($curl);
-	// 	 curl_close($curl);
-	// 	 return $output;
-	//  }
+ 	function send_template_message($data){
+		 $url = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=".$this->$Access_token;
+		 $res = $this->http_request($url, $data);
+		 return json_decode($res, true);
+	 }
+	 function http_request($url, $data = null){
+		 $curl = curl_init();
+		 curl_setopt($curl, CURLOPT_URL, $url);
+		 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+		 curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+		 if(!empty($data)){
+			 curl_setopt($curl, CURLOPT_POST, 1);
+			 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+		 }
+		 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		 $output = curl_exec($curl);
+		 curl_close($curl);
+		 return $output;
+	 }
  	
  }
 ?>
