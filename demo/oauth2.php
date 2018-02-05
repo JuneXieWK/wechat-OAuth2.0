@@ -102,25 +102,29 @@ class oauth2{
  		
  		return $data;
  		 		
- 	}
+	 }
+	 private function getAccessToken() {
+		// access_token 应该全局存储与更新，以下代码以写入到文件中做示例
+		$data = json_decode(file_get_contents("access_token.json"));
+		if ($data->expire_time < time()) {
+			// 如果是企业号用以下URL获取access_token
+			// $url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$this->appId&corpsecret=$this->appSecret";
+			$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->APPID&secret=$this->SECRET";
+			$res = json_decode($this->httpGet($url));
+			$access_token = $res->access_token;
+			if ($access_token) {
+				$data->expire_time = time() + 7000;
+				$data->access_token = $access_token;
+				$fp = fopen("access_token.json", "w");
+				fwrite($fp, json_encode($data));
+				fclose($fp);
+			}
+		} else {
+			$access_token = $data->access_token;
+		}
+		return $access_token;
+	}
  	function send_template_message(){
-		$APPID=$this->APPID;
-		$SECRET=$this->SECRET;
-		$code=$this->Code;
-			
-		// $url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=$APPID&secret=$SECRET&code=$code&grant_type=authorization_code";
- 		// $content=file_get_contents($url);
- 		// $o=json_decode($content,true);
- 		// $openid=$o['openid'];
-		// $access_token=$o['access_token'];
-		// $this->lasttime = 1406469747;
-		// $this->access_token = "";
-		// if(time()>($this->lasttime + 7200)){
-			$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$APPID&secret=$SECRET";
-			$res = $this->http_request($url);
-			$o = json_decode($res, true);
-			$access_token = $o['access_token'];
-		// }
 
 		$template = array(
 			'touser'=>"o0Tlr1lkjOFwD22MiiavyumR2xjQ",
@@ -136,7 +140,7 @@ class oauth2{
 			)
 		);
 
-		 $url2 = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=$access_token";
+		 $url2 = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=".$this->getAccessToken();
 		 $res2 = $this->http_request($url2, urldecode(json_encode($template)));
 		 return json_decode($res2, true);
 
