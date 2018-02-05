@@ -128,12 +128,12 @@ class oauth2{
 			)
 		);
 
-		//  $url2 = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=$access_token";
-		//  $res = $this->http_request($url2, urldecode(json_encode($template)));
-		//  return json_decode($res, true);
+		 $url2 = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=$access_token";
+		 $res = $this->http_request($url2, urldecode(json_encode($template)));
+		 return json_decode($res, true);
 
-		 $res = $this->http_curl($url2, 'post', 'json', urldecode(json_encode($template)));
-		 return $res;
+		//  $res = $this->http_curl($url2, 'post', 'json', urldecode(json_encode($template)));
+		//  return $res;
 	 }
 	 function http_request($url, $data = null){
 		 $curl = curl_init();
