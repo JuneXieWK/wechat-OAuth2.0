@@ -84,7 +84,8 @@ class oauth2{
  		$access_token=$o['access_token'];
  		
  		$url2="https://api.weixin.qq.com/sns/userinfo?access_token=$access_token&openid=$openid&lang=zh_CN";
- 		$content2=file_get_contents($url2);
+		 $content2=file_get_contents($url2);
+		 $Temp = $content2;
  		$o2=json_decode($content2,true);//微信获取用户信息
  		
  		//处理昵称里的特殊字符
@@ -94,7 +95,8 @@ class oauth2{
  		$data=array('nickname'=>'','heading'=>'');
  		$data['nickname']=base64_encode($str_nickname);
 		 $data['headimgurl']=$o2['headimgurl'];
-		 $data['dataRaw'] = $content2;
+		 $data['dataRaw'] = $Temp;
+		 $data['nickname1'] = $str_nickname;
  		
  		return $data;
  		 		
