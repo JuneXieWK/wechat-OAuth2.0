@@ -38,7 +38,7 @@ $template = array('touser'=>"测试号的关注者的openId",
 	'keyword3'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
 	'remark'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
 ));
-$result = $oauth2->send_template_message($template);
-echo '</br>result: '.$result;
+
+var_dump($oauth2->send_template_message(urldecode(json_encode($template))));
 
 ?>
