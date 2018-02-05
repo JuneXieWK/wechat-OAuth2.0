@@ -140,7 +140,7 @@ class oauth2{
 			)
 		);
 		$access_token = $this->getAccessToken();
-		 $url2 = "https://api.weixin.qq.com/cgi-bin/message/send?access_token=".$access_token;
+		 $url2 = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
 		 $res2 = $this->http_request($url2, urldecode(json_encode($template)));
 		 return json_decode($res2, true);
 
