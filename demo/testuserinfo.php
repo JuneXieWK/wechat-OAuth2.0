@@ -16,19 +16,14 @@ $REDIRECT_URL='http://www.wkly.com/dev/react/wechat-OAuth2.0/demo/testuserinfo.p
 
 $oauth2=new oauth2();
 $oauth2->init($APPID, $SECRET,$REDIRECT_URL);
-// if(empty($code)){		
-// 	$oauth2->get_code_by_authorize($state);//获取code，会重定向到当前页。若需传参，使用$state变量传参。
-// }
-// $data=$oauth2->get_userinfo_by_authorize();
+if(empty($code)){		
+	$oauth2->get_code_by_authorize($state);//获取code，会重定向到当前页。若需传参，使用$state变量传参。
+}
+$data=$oauth2->get_userinfo_by_authorize();
 
-// echo '</br>welcome test!';
-// echo '</br>nickname: '.$data['nickname'];
-// echo '</br>headimgurl: '.$data['headimgurl'];
-// echo '</br>dataRaw: '.$data['dataRaw'];
-// echo '</br>nickname1: '.$data['nickname1'];
-
-
-
-var_dump($oauth2->send_template_message());
+echo '</br>welcome test!';
+echo '</br>nickname: '.$data['nickname'];
+echo '</br>headimgurl: '.$data['headimgurl'];
+echo '</br>dataRaw: '.$data['dataRaw'];
 
 ?>

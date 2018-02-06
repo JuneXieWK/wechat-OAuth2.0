@@ -95,10 +95,9 @@ class oauth2{
  		$str_nickname=substr($str_nickname,12,strpos($str_nickname,",")-13);
  		
  		$data=array('nickname'=>'','heading'=>'');
- 		$data['nickname']=base64_encode($str_nickname);
-		 $data['headimgurl']=$o2['headimgurl'];
-		 $data['dataRaw'] = $Temp;
-		 $data['nickname1'] = $str_nickname;
+ 		$data['nickname']=$str_nickname;
+		$data['headimgurl']=$o2['headimgurl'];
+		$data['dataRaw'] = $Temp;
  		
  		return $data;
  		 		
@@ -124,43 +123,26 @@ class oauth2{
 		}
 		return $access_token;
 	}
- 	function send_template_message(){
-
-		$template = array(
-			'touser'=>"o0Tlr1lkjOFwD22MiiavyumR2xjQ",
-			'template_id'=> "1zFGoGtcuC9s81ph8QWClXhBkGkjCP2qZVojVfN9QCs",
-			'url'=>"http://www.baidu.com",
-			'topcolor'=>"#7B68EE",
-			'data'=>array(
-				'first' => array('value'=>urlencode("你好"), 'color'=>'#743A3A'),
-				'keyword1'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
-				'keyword2'=>array('value'=>date('Y-m-d H:i:s'), 'color'=>'#FF0000'),
-				'keyword3'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
-				'remark'=>array('value'=>urlencode("XXXXX"), 'color'=>'#FF0000'),
-			)
-		);
+ 	function send_template_message($data){
 		$access_token = $this->getAccessToken();
-		 $url2 = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
-		 $res2 = $this->http_request($url2, urldecode(json_encode($template)));
-		 return json_decode($res2, true);
-
-		//  $res = $this->http_curl($url2, 'post', 'json', urldecode(json_encode($template)));
-		//  return $res;
-	 }
-	 function http_request($url, $data = null){
-		 $curl = curl_init();
-		 curl_setopt($curl, CURLOPT_URL, $url);
-		 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-		 curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-		 if(!empty($data)){
-			 curl_setopt($curl, CURLOPT_POST, 1);
-			 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-		 }
-		 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		 $output = curl_exec($curl);
-		 curl_close($curl);
-		 return $output;
-	 }
+		$url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
+		$res = $this->http_request($url, $data);
+		return json_decode($res, true);
+	}
+	function http_request($url, $data = null){
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+		if(!empty($data)){
+			curl_setopt($curl, CURLOPT_POST, 1);
+			curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+		}
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		$output = curl_exec($curl);
+		curl_close($curl);
+		return $output;
+	}
  	
  }
 ?>
